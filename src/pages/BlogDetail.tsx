@@ -1,4 +1,3 @@
-
 import { IMAGES } from "@/assets/images";
 import { ContactForm } from "@/components/ContactForm";
 import { Badge } from "@/components/ui/badge";
@@ -35,10 +34,10 @@ export default function BlogDetail() {
     );
   }
 
-  console.log(post)
+  console.log(post);
 
   const postImage = IMAGES[post.image as keyof typeof IMAGES] ?? post.image;
- 
+
   const relatedPosts = blogPosts
     .filter((p) => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
@@ -129,36 +128,15 @@ export default function BlogDetail() {
                 </p>
 
                 <div className="space-y-6 text-foreground">
-                  <p>
-                    [Add your detailed blog content here. This is where you'll
-                    add the full article content, including headers, paragraphs,
-                    lists, and other formatting as needed.]
-                  </p>
-
-                  <h2 className="text-2xl font-bold mt-8 mb-4">
-                    Key Points to Consider
-                  </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>First important point about the topic</li>
-                    <li>Second key consideration to keep in mind</li>
-                    <li>Third insight that adds value</li>
-                    <li>Fourth takeaway for readers</li>
-                  </ul>
-
-                  <h2 className="text-2xl font-bold mt-8 mb-4">Next Steps</h2>
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                  </p>
+                  {(() => {
+                    const raw = (post.description ?? post.excerpt) as string;
+                    const normalized = raw.replace(/\r\n/g, "\n").trim();
+                    const paras = normalized
+                      .split(/\n{2,}/)
+                      .map((p) => p.replace(/\n+/g, " ").trim())
+                      .filter(Boolean);
+                    return paras.map((para, i) => <p key={i}>{para}</p>);
+                  })()}
                 </div>
 
                 <div className="flex items-center gap-4 mt-8 pt-8 border-t">
@@ -192,7 +170,10 @@ export default function BlogDetail() {
                       >
                         <div className="flex gap-3">
                           <img
-                            src={IMAGES[related.image as keyof typeof IMAGES] ?? related.image}
+                            src={
+                              IMAGES[related.image as keyof typeof IMAGES] ??
+                              related.image
+                            }
                             alt={related.title}
                             className="w-16 h-16 object-cover rounded-lg group-hover:opacity-80 transition-opacity"
                           />

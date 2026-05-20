@@ -98,6 +98,7 @@ export function TestimonialCard({
 interface BlogCardProps {
   title: string;
   excerpt: string;
+  description?: string;
   category: string;
   date: string;
   image: string;
@@ -107,11 +108,14 @@ interface BlogCardProps {
 export function BlogCard({
   title,
   excerpt,
+  description,
   category,
   date,
   image,
   slug,
 }: BlogCardProps) {
+  const summary = description ?? excerpt;
+
   const content = (
     <motion.div
       variants={hoverLift}
@@ -140,7 +144,7 @@ export function BlogCard({
         </CardHeader>
         <CardContent>
           <CardDescription className="line-clamp-3 text-muted-foreground">
-            {excerpt}
+            {summary}
           </CardDescription>
           <span className="mt-4 text-sm font-medium text-primary hover:underline inline-block">
             Read More →
