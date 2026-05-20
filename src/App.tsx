@@ -13,6 +13,7 @@ import Reviews from "@/pages/Reviews";
 import Blog from "@/pages/Blog";
 import RealEstate from "@/pages/RealEstate";
 import BlogDetail from "@/pages/BlogDetail";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <Layout>
             <Routes>
               <Route path={ROUTE_PATHS.HOME} element={<Home />} />
