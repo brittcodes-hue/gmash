@@ -1,10 +1,12 @@
 export const ROUTE_PATHS = {
-  HOME: '/',
-  RENOVATION_SERVICES: '/renovation-services',
-  FORECLOSURE_HELP: '/foreclosure-help',
-  REVIEWS: '/reviews',
-  BLOG: '/blog',
-  REAL_ESTATE: '/real-estate',
+  HOME: "/",
+  RENOVATION_SERVICES: "/renovation-services",
+  FORECLOSURE_HELP: "/foreclosure-help",
+  REVIEWS: "/reviews",
+  BLOG: "/blog",
+  BLOG_DETAIL: "/blog/:slug",
+  REAL_ESTATE: "/real-estate",
+  ABOUT_US: "/about-us",
 } as const;
 
 export type RoutePath = typeof ROUTE_PATHS[keyof typeof ROUTE_PATHS];

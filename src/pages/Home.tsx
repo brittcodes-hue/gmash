@@ -40,13 +40,19 @@ export default function Home() {
               We Buy, Fix, and Transform Homes Across Colorado
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto">
-              Expert fix and flip investing, foreclosure relief, and renovation consulting — helping homeowners and investors maximize value.
+              Expert fix and flip investing, foreclosure relief, and renovation
+              consulting — helping homeowners and investors maximize value.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild className="text-lg px-8 py-6">
                 <a href="#contact">Get Free Consultation</a>
               </Button>
-              <Button size="lg" variant="secondary" asChild className="text-lg px-8 py-6">
+              <Button
+                size="lg"
+                variant="secondary"
+                asChild
+                className="text-lg px-8 py-6"
+              >
                 <a href="#services">See Our Services</a>
               </Button>
             </div>
@@ -64,16 +70,28 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <motion.div variants={staggerItem}>
-              <TrustBadge icon={<Shield className="w-6 h-6" />} text="Licensed Investors" />
+              <TrustBadge
+                icon={<Shield className="w-6 h-6" />}
+                text="Licensed Investors"
+              />
             </motion.div>
             <motion.div variants={staggerItem}>
-              <TrustBadge icon={<HomeIcon className="w-6 h-6" />} text="Colorado Based" />
+              <TrustBadge
+                icon={<HomeIcon className="w-6 h-6" />}
+                text="Colorado Based"
+              />
             </motion.div>
             <motion.div variants={staggerItem}>
-              <TrustBadge icon={<Users className="w-6 h-6" />} text="Hundreds of Homes Helped" />
+              <TrustBadge
+                icon={<Users className="w-6 h-6" />}
+                text="Hundreds of Homes Helped"
+              />
             </motion.div>
             <motion.div variants={staggerItem}>
-              <TrustBadge icon={<Award className="w-6 h-6" />} text="Free Consultations" />
+              <TrustBadge
+                icon={<Award className="w-6 h-6" />}
+                text="Free Consultations"
+              />
             </motion.div>
           </motion.div>
         </div>
@@ -88,9 +106,12 @@ export default function Home() {
             viewport={{ once: true }}
             transition={springPresets.gentle}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Our Services</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Our Services
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Comprehensive real estate solutions for homeowners and investors across Colorado
+              Comprehensive real estate solutions for homeowners and investors
+              across Colorado
             </p>
           </motion.div>
 
@@ -140,13 +161,24 @@ export default function Home() {
             >
               <h2 className="text-4xl md:text-5xl font-bold">About GMASH</h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                GMASH is the amalgamation of two trusted Denver real estate partners: Colorado Real Estate Partners and Hackett Home Co. Together, we bring decades of combined experience in property investment, renovation, and community-focused real estate services.
+                GMASH is the amalgamation of two trusted Denver real estate
+                partners: Colorado Real Estate Partners and Hackett Home Co.
+                Together, we bring decades of combined experience in property
+                investment, renovation, and community-focused real estate
+                services.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                Our mission is simple: help homeowners preserve their homes, reduce debt, and increase property value through expert consultation and hands-on investment services. Whether you're facing foreclosure, planning a renovation, or exploring investment opportunities, we're here to guide you with integrity and care.
+                Our mission is simple: help homeowners preserve their homes,
+                reduce debt, and increase property value through expert
+                consultation and hands-on investment services. Whether you're
+                facing foreclosure, planning a renovation, or exploring
+                investment opportunities, we're here to guide you with integrity
+                and care.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                We believe every homeowner deserves dignity, every property has potential, and every community is strengthened when we invest in its future.
+                We believe every homeowner deserves dignity, every property has
+                potential, and every community is strengthened when we invest in
+                its future.
               </p>
             </motion.div>
           </div>
@@ -162,7 +194,9 @@ export default function Home() {
             viewport={{ once: true }}
             transition={springPresets.gentle}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">What Our Clients Say</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              What Our Clients Say
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Real stories from Colorado homeowners and investors we've helped
             </p>
@@ -204,9 +238,12 @@ export default function Home() {
             viewport={{ once: true }}
             transition={springPresets.gentle}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Latest Insights</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              Latest Insights
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Expert tips on real estate investing, foreclosure help, and home renovations
+              Expert tips on real estate investing, foreclosure help, and home
+              renovations
             </p>
           </motion.div>
 
@@ -225,6 +262,7 @@ export default function Home() {
                   category={post.category}
                   date={post.date}
                   image={post.image}
+                  slug={post.slug}
                 />
               </motion.div>
             ))}
@@ -249,9 +287,13 @@ export default function Home() {
               transition={springPresets.gentle}
             >
               <div>
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">Get Your Free Consultation</h2>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                  Get Your Free Consultation
+                </h2>
                 <p className="text-xl text-muted-foreground">
-                  Whether you're facing foreclosure, planning a renovation, or exploring investment opportunities, we're here to help. No obligation, just honest guidance.
+                  Whether you're facing foreclosure, planning a renovation, or
+                  exploring investment opportunities, we're here to help. No
+                  obligation, just honest guidance.
                 </p>
               </div>
 
@@ -261,8 +303,13 @@ export default function Home() {
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Call Us Directly</p>
-                    <a href={`tel:${CONTACT_INFO.phone}`} className="text-xl font-semibold hover:text-primary transition-colors">
+                    <p className="text-sm text-muted-foreground">
+                      Call Us Directly
+                    </p>
+                    <a
+                      href={`tel:${CONTACT_INFO.phone}`}
+                      className="text-xl font-semibold hover:text-primary transition-colors"
+                    >
                       {CONTACT_INFO.phone}
                     </a>
                   </div>
