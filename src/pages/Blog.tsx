@@ -24,6 +24,8 @@ export default function Blog() {
     return matchesSearch && matchesCategory;
   });
 
+  console.log(filteredPosts)
+
   const popularPosts = blogPosts.slice(0, 3);
 
   return (
@@ -113,6 +115,7 @@ export default function Blog() {
                         category={post.category}
                         date={post.date}
                         image={post.image}
+                        slug={post.slug}
                       />
                     </motion.div>
                   ))}

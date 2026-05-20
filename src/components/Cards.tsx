@@ -1,10 +1,16 @@
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { springPresets, hoverLift } from '@/lib/motion';
 import { IMAGES } from "@/assets/images";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { hoverLift, springPresets } from "@/lib/motion";
+import { motion } from "framer-motion";
+import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ServiceCardProps {
   title: string;
@@ -13,7 +19,12 @@ interface ServiceCardProps {
   link: string;
 }
 
-export function ServiceCard({ title, description, icon, link }: ServiceCardProps) {
+export function ServiceCard({
+  title,
+  description,
+  icon,
+  link,
+}: ServiceCardProps) {
   return (
     <motion.div
       variants={hoverLift}
@@ -47,7 +58,12 @@ interface TestimonialCardProps {
   testimonial: string;
 }
 
-export function TestimonialCard({ name, location, rating, testimonial }: TestimonialCardProps) {
+export function TestimonialCard({
+  name,
+  location,
+  rating,
+  testimonial,
+}: TestimonialCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -85,10 +101,18 @@ interface BlogCardProps {
   category: string;
   date: string;
   image: string;
+  slug?: string;
 }
 
-export function BlogCard({ title, excerpt, category, date, image }: BlogCardProps) {
-  return (
+export function BlogCard({
+  title,
+  excerpt,
+  category,
+  date,
+  image,
+  slug,
+}: BlogCardProps) {
+  const content = (
     <motion.div
       variants={hoverLift}
       initial="rest"
@@ -110,19 +134,27 @@ export function BlogCard({ title, excerpt, category, date, image }: BlogCardProp
             </Badge>
             <span className="text-xs text-muted-foreground">{date}</span>
           </div>
-          <CardTitle className="text-xl font-semibold line-clamp-2">{title}</CardTitle>
+          <CardTitle className="text-xl font-semibold line-clamp-2">
+            {title}
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <CardDescription className="line-clamp-3 text-muted-foreground">
             {excerpt}
           </CardDescription>
-          <button className="mt-4 text-sm font-medium text-primary hover:underline">
+          <span className="mt-4 text-sm font-medium text-primary hover:underline inline-block">
             Read More →
-          </button>
+          </span>
         </CardContent>
       </Card>
     </motion.div>
   );
+
+  if (slug) {
+    return <Link to={`/blog/${slug}`}>{content}</Link>;
+  }
+
+  return content;
 }
 
 interface TrustBadgeProps {

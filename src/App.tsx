@@ -12,6 +12,7 @@ import ForeclosureHelp from "@/pages/ForeclosureHelp";
 import Reviews from "@/pages/Reviews";
 import Blog from "@/pages/Blog";
 import RealEstate from "@/pages/RealEstate";
+import BlogDetail from "@/pages/BlogDetail";
 
 const queryClient = new QueryClient();
 
@@ -25,10 +26,17 @@ const App = () => (
           <Layout>
             <Routes>
               <Route path={ROUTE_PATHS.HOME} element={<Home />} />
-              <Route path={ROUTE_PATHS.RENOVATION_SERVICES} element={<RenovationServices />} />
-              <Route path={ROUTE_PATHS.FORECLOSURE_HELP} element={<ForeclosureHelp />} />
+              <Route
+                path={ROUTE_PATHS.RENOVATION_SERVICES}
+                element={<RenovationServices />}
+              />
+              <Route
+                path={ROUTE_PATHS.FORECLOSURE_HELP}
+                element={<ForeclosureHelp />}
+              />
               <Route path={ROUTE_PATHS.REVIEWS} element={<Reviews />} />
               <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />
+              <Route path={ROUTE_PATHS.BLOG_DETAIL} element={<BlogDetail />} />
               <Route path={ROUTE_PATHS.REAL_ESTATE} element={<RealEstate />} />
             </Routes>
           </Layout>
