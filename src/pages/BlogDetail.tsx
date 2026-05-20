@@ -130,12 +130,92 @@ export default function BlogDetail() {
                 <div className="space-y-6 text-foreground">
                   {(() => {
                     const raw = (post.description ?? post.excerpt) as string;
-                    const normalized = raw.replace(/\r\n/g, "\n").trim();
-                    const paras = normalized
-                      .split(/\n{2,}/)
-                      .map((p) => p.replace(/\n+/g, " ").trim())
-                      .filter(Boolean);
-                    return paras.map((para, i) => <p key={i}>{para}</p>);
+                    const text = raw.replace(/\r\n/g, "\n").trim();
+                    const lines = text.split(/\n/);
+
+                    type Block = { type: "p" | "h2" | "ul" | "ol"; content: string[] };
+                    const blocks: Block[] = [];
+
+                    let i = 0;
+                    const isListItem = (l: string) => /^\s*([-*•])\s+/.test(l);
+                    const isOrderedItem = (l: string) => /^\s*\d+\.\s+/.test(l);
+
+                    const prevBlank = (idx: number) => idx === 0 || lines[idx - 1].trim() === "";
+                    const nextBlank = (idx: number) => idx === lines.length - 1 || lines[idx + 1].trim() === "";
+
+                    while (i < lines.length) {
+                      const line = lines[i].trim();
+                      if (!line) {
+                        i++;
+                        continue;
+                      }
+
+                      // List (unordered)
+                      if (isListItem(lines[i])) {
+                        const items: string[] = [];
+                        while (i < lines.length && isListItem(lines[i])) {
+                          items.push(lines[i].replace(/^\s*[-*•]\s+/, "").trim());
+                          i++;
+                        }
+                        blocks.push({ type: "ul", content: items });
+                        continue;
+                      }
+
+                      // Ordered list
+                      if (isOrderedItem(lines[i])) {
+                        const items: string[] = [];
+                        while (i < lines.length && isOrderedItem(lines[i])) {
+                          items.push(lines[i].replace(/^\s*\d+\.\s+/, "").trim());
+                          i++;
+                        }
+                        blocks.push({ type: "ol", content: items });
+                        continue;
+                      }
+
+                      // Short standalone line between blanks -> treat as heading
+                      if (line.length > 0 && line.length <= 60 && prevBlank(i) && nextBlank(i)) {
+                        blocks.push({ type: "h2", content: [line] });
+                        i++;
+                        continue;
+                      }
+
+                      // Paragraph: accumulate until blank line or list/heading
+                      const paraLines: string[] = [line];
+                      i++;
+                      while (i < lines.length && lines[i].trim() !== "" && !isListItem(lines[i]) && !isOrderedItem(lines[i])) {
+                        paraLines.push(lines[i].trim());
+                        i++;
+                      }
+                      const paragraph = paraLines.join(" ").replace(/\s+/g, " ").trim();
+                      blocks.push({ type: "p", content: [paragraph] });
+                    }
+
+                    return blocks.map((b, idx) => {
+                      if (b.type === "h2") return (
+                        <h2 key={idx} className="text-2xl font-bold mt-8 mb-4">
+                          {b.content[0]}
+                        </h2>
+                      );
+                      if (b.type === "ul") return (
+                        <ul key={idx} className="list-disc pl-6 space-y-2">
+                          {b.content.map((li, i) => (
+                            <li key={i}>{li}</li>
+                          ))}
+                        </ul>
+                      );
+                      if (b.type === "ol") return (
+                        <ol key={idx} className="list-decimal pl-6 space-y-2">
+                          {b.content.map((li, i) => (
+                            <li key={i}>{li}</li>
+                          ))}
+                        </ol>
+                      );
+                      return (
+                        <p key={idx} className="leading-relaxed">
+                          {b.content[0]}
+                        </p>
+                      );
+                    });
                   })()}
                 </div>
 
