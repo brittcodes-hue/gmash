@@ -1,4 +1,3 @@
-
 import { IMAGES } from "@/assets/images";
 import { ContactForm } from "@/components/ContactForm";
 import { Badge } from "@/components/ui/badge";
@@ -35,10 +34,10 @@ export default function BlogDetail() {
     );
   }
 
-  console.log(post)
+  console.log(post);
 
   const postImage = IMAGES[post.image as keyof typeof IMAGES] ?? post.image;
- 
+
   const relatedPosts = blogPosts
     .filter((p) => p.category === post.category && p.id !== post.id)
     .slice(0, 3);
@@ -129,36 +128,95 @@ export default function BlogDetail() {
                 </p>
 
                 <div className="space-y-6 text-foreground">
-                  <p>
-                    [Add your detailed blog content here. This is where you'll
-                    add the full article content, including headers, paragraphs,
-                    lists, and other formatting as needed.]
-                  </p>
+                  {(() => {
+                    const raw = (post.description ?? post.excerpt) as string;
+                    const text = raw.replace(/\r\n/g, "\n").trim();
+                    const lines = text.split(/\n/);
 
-                  <h2 className="text-2xl font-bold mt-8 mb-4">
-                    Key Points to Consider
-                  </h2>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
+                    type Block = { type: "p" | "h2" | "ul" | "ol"; content: string[] };
+                    const blocks: Block[] = [];
 
-                  <ul className="list-disc pl-6 space-y-2">
-                    <li>First important point about the topic</li>
-                    <li>Second key consideration to keep in mind</li>
-                    <li>Third insight that adds value</li>
-                    <li>Fourth takeaway for readers</li>
-                  </ul>
+                    let i = 0;
+                    const isListItem = (l: string) => /^\s*([-*•])\s+/.test(l);
+                    const isOrderedItem = (l: string) => /^\s*\d+\.\s+/.test(l);
 
-                  <h2 className="text-2xl font-bold mt-8 mb-4">Next Steps</h2>
-                  <p>
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
-                  </p>
+                    const prevBlank = (idx: number) => idx === 0 || lines[idx - 1].trim() === "";
+                    const nextBlank = (idx: number) => idx === lines.length - 1 || lines[idx + 1].trim() === "";
+
+                    while (i < lines.length) {
+                      const line = lines[i].trim();
+                      if (!line) {
+                        i++;
+                        continue;
+                      }
+
+                      // List (unordered)
+                      if (isListItem(lines[i])) {
+                        const items: string[] = [];
+                        while (i < lines.length && isListItem(lines[i])) {
+                          items.push(lines[i].replace(/^\s*[-*•]\s+/, "").trim());
+                          i++;
+                        }
+                        blocks.push({ type: "ul", content: items });
+                        continue;
+                      }
+
+                      // Ordered list
+                      if (isOrderedItem(lines[i])) {
+                        const items: string[] = [];
+                        while (i < lines.length && isOrderedItem(lines[i])) {
+                          items.push(lines[i].replace(/^\s*\d+\.\s+/, "").trim());
+                          i++;
+                        }
+                        blocks.push({ type: "ol", content: items });
+                        continue;
+                      }
+
+                      // Short standalone line between blanks -> treat as heading
+                      if (line.length > 0 && line.length <= 60 && prevBlank(i) && nextBlank(i)) {
+                        blocks.push({ type: "h2", content: [line] });
+                        i++;
+                        continue;
+                      }
+
+                      // Paragraph: accumulate until blank line or list/heading
+                      const paraLines: string[] = [line];
+                      i++;
+                      while (i < lines.length && lines[i].trim() !== "" && !isListItem(lines[i]) && !isOrderedItem(lines[i])) {
+                        paraLines.push(lines[i].trim());
+                        i++;
+                      }
+                      const paragraph = paraLines.join(" ").replace(/\s+/g, " ").trim();
+                      blocks.push({ type: "p", content: [paragraph] });
+                    }
+
+                    return blocks.map((b, idx) => {
+                      if (b.type === "h2") return (
+                        <h2 key={idx} className="text-2xl font-bold mt-8 mb-4">
+                          {b.content[0]}
+                        </h2>
+                      );
+                      if (b.type === "ul") return (
+                        <ul key={idx} className="list-disc pl-6 space-y-2">
+                          {b.content.map((li, i) => (
+                            <li key={i}>{li}</li>
+                          ))}
+                        </ul>
+                      );
+                      if (b.type === "ol") return (
+                        <ol key={idx} className="list-decimal pl-6 space-y-2">
+                          {b.content.map((li, i) => (
+                            <li key={i}>{li}</li>
+                          ))}
+                        </ol>
+                      );
+                      return (
+                        <p key={idx} className="leading-relaxed">
+                          {b.content[0]}
+                        </p>
+                      );
+                    });
+                  })()}
                 </div>
 
                 <div className="flex items-center gap-4 mt-8 pt-8 border-t">
@@ -192,7 +250,10 @@ export default function BlogDetail() {
                       >
                         <div className="flex gap-3">
                           <img
-                            src={IMAGES[related.image as keyof typeof IMAGES] ?? related.image}
+                            src={
+                              IMAGES[related.image as keyof typeof IMAGES] ??
+                              related.image
+                            }
                             alt={related.title}
                             className="w-16 h-16 object-cover rounded-lg group-hover:opacity-80 transition-opacity"
                           />

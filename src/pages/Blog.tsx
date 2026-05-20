@@ -1,30 +1,47 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Calendar, Tag, TrendingUp, Home, AlertCircle } from 'lucide-react';
-import { blogPosts } from '@/data/index';
-import { BlogCard } from '@/components/Cards';
-import { ContactForm } from '@/components/ContactForm';
-import { IMAGES } from '@/assets/images';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { springPresets, fadeInUp, staggerContainer, staggerItem } from '@/lib/motion';
+import { IMAGES } from "@/assets/images";
+import { BlogCard } from "@/components/Cards";
+import { ContactForm } from "@/components/ContactForm";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { blogPosts } from "@/data/index";
+import {
+  fadeInUp,
+  springPresets,
+  staggerContainer,
+  staggerItem,
+} from "@/lib/motion";
+import { motion } from "framer-motion";
+import {
+  AlertCircle,
+  Calendar,
+  Home,
+  Search,
+  Tag,
+  TrendingUp,
+} from "lucide-react";
+import { useState } from "react";
 
 export default function Blog() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const categories = Array.from(new Set(blogPosts.map(post => post.category)));
+  const categories = Array.from(
+    new Set(blogPosts.map((post) => post.category)),
+  );
 
-  const filteredPosts = blogPosts.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = !selectedCategory || post.category === selectedCategory;
+  const filteredPosts = blogPosts.filter((post) => {
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      !selectedCategory || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  console.log(filteredPosts)
+  console.log(filteredPosts);
 
   const popularPosts = blogPosts.slice(0, 3);
 
@@ -42,7 +59,7 @@ export default function Blog() {
             alt="Denver Colorado skyline with mountains"
             className="w-full h-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-transparent to-background/70" />
+          <div className="absolute inset-0 bg-linear-to-b from-background/50 via-transparent to-background/70" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -53,10 +70,13 @@ export default function Blog() {
             animate="animate"
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Real Estate Investment Tips, Foreclosure Guides & Renovation Insights
+              Real Estate Investment Tips, Foreclosure Guides & Renovation
+              Insights
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Explore expert articles on fix and flip investing, project progress, foreclosure help in Colorado, and home renovation strategies from the GMASH team.
+              Explore expert articles on fix and flip investing, project
+              progress, foreclosure help in Colorado, and home renovation
+              strategies from the GMASH team.
             </p>
           </motion.div>
         </div>
@@ -78,16 +98,18 @@ export default function Blog() {
 
             <div className="flex flex-wrap gap-3 mt-6 justify-center">
               <Button
-                variant={selectedCategory === null ? 'default' : 'outline'}
+                variant={selectedCategory === null ? "default" : "outline"}
                 onClick={() => setSelectedCategory(null)}
                 className="rounded-full"
               >
                 All Articles
               </Button>
-              {categories.map(category => (
+              {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={selectedCategory === category ? 'default' : 'outline'}
+                  variant={
+                    selectedCategory === category ? "default" : "outline"
+                  }
                   onClick={() => setSelectedCategory(category)}
                   className="rounded-full"
                 >
@@ -107,11 +129,12 @@ export default function Blog() {
             >
               {filteredPosts.length > 0 ? (
                 <div className="grid md:grid-cols-2 gap-8">
-                  {filteredPosts.map(post => (
+                  {filteredPosts.map((post) => (
                     <motion.div key={post.id} variants={staggerItem}>
                       <BlogCard
                         title={post.title}
                         excerpt={post.excerpt}
+                        description={post.description}
                         category={post.category}
                         date={post.date}
                         image={post.image}
@@ -123,7 +146,9 @@ export default function Blog() {
               ) : (
                 <Card className="p-12 text-center">
                   <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                  <h3 className="text-xl font-semibold mb-2">No articles found</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    No articles found
+                  </h3>
                   <p className="text-muted-foreground">
                     Try adjusting your search or filter criteria
                   </p>
@@ -146,7 +171,10 @@ export default function Blog() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    GMASH is a Denver-based real estate investment company specializing in fix and flip projects, foreclosure solutions, and property renovations. We help homeowners preserve their homes and investors maximize value.
+                    GMASH is a Denver-based real estate investment company
+                    specializing in fix and flip projects, foreclosure
+                    solutions, and property renovations. We help homeowners
+                    preserve their homes and investors maximize value.
                   </p>
                 </CardContent>
               </Card>
@@ -159,7 +187,7 @@ export default function Blog() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {popularPosts.map(post => (
+                  {popularPosts.map((post) => (
                     <div key={post.id} className="group cursor-pointer">
                       <div className="flex gap-4">
                         <img
@@ -176,10 +204,10 @@ export default function Blog() {
                           </h4>
                           <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                             <Calendar className="h-3 w-3" />
-                            {new Date(post.date).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
+                            {new Date(post.date).toLocaleDateString("en-US", {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
                             })}
                           </p>
                         </div>
@@ -194,7 +222,10 @@ export default function Blog() {
                   <CardTitle>Get in Touch</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ContactForm defaultServiceType="general-inquiry" className="space-y-4" />
+                  <ContactForm
+                    defaultServiceType="general-inquiry"
+                    className="space-y-4"
+                  />
                 </CardContent>
               </Card>
             </motion.aside>
@@ -222,13 +253,19 @@ export default function Blog() {
               Ready to Transform Your Property?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Whether you're facing foreclosure, planning a renovation, or looking to invest, GMASH is here to help. Get your free consultation today.
+              Whether you're facing foreclosure, planning a renovation, or
+              looking to invest, GMASH is here to help. Get your free
+              consultation today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="secondary" className="text-lg">
                 Get Free Consultation
               </Button>
-              <Button size="lg" variant="outline" className="text-lg border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-lg border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              >
                 Call 720.663.7346
               </Button>
             </div>
