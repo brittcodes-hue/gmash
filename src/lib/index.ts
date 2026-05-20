@@ -6,6 +6,7 @@ export const ROUTE_PATHS = {
   BLOG: "/blog",
   BLOG_DETAIL: "/blog/:slug",
   REAL_ESTATE: "/real-estate",
+  ABOUT_US: "/about-us",
 } as const;
 
 export type RoutePath = typeof ROUTE_PATHS[keyof typeof ROUTE_PATHS];

@@ -58,12 +58,13 @@ export function Layout({ children }: LayoutProps) {
   }, [mobileMenuOpen]);
 
   const navLinks = [
-    { to: ROUTE_PATHS.HOME, label: 'Home' },
-    { to: ROUTE_PATHS.RENOVATION_SERVICES, label: 'Renovation Services' },
-    { to: ROUTE_PATHS.FORECLOSURE_HELP, label: 'Foreclosure Help' },
-    { to: ROUTE_PATHS.REAL_ESTATE, label: 'Real Estate Service' },
-    { to: ROUTE_PATHS.REVIEWS, label: 'Reviews' },
-    { to: ROUTE_PATHS.BLOG, label: 'Blog' },
+    { to: ROUTE_PATHS.HOME, label: "Home" },
+    { to: ROUTE_PATHS.RENOVATION_SERVICES, label: "Renovation Services" },
+    { to: ROUTE_PATHS.FORECLOSURE_HELP, label: "Foreclosure Help" },
+    { to: ROUTE_PATHS.REAL_ESTATE, label: "Real Estate Service" },
+    { to: ROUTE_PATHS.ABOUT_US, label: "About Us" },
+    { to: ROUTE_PATHS.REVIEWS, label: "Reviews" },
+    { to: ROUTE_PATHS.BLOG, label: "Blog" },
   ];
 
   return (

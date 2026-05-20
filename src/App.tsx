@@ -14,6 +14,7 @@ import Blog from "@/pages/Blog";
 import RealEstate from "@/pages/RealEstate";
 import BlogDetail from "@/pages/BlogDetail";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import AboutUs from "@/pages/AboutUs";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
               <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />
               <Route path={ROUTE_PATHS.BLOG_DETAIL} element={<BlogDetail />} />
               <Route path={ROUTE_PATHS.REAL_ESTATE} element={<RealEstate />} />
+              <Route path={ROUTE_PATHS.ABOUT_US} element={<AboutUs />} />
             </Routes>
           </Layout>
         </BrowserRouter>
