@@ -8,6 +8,7 @@ export const ROUTE_PATHS = {
   REAL_ESTATE: "/real-estate",
   ABOUT_US: "/about-us",
   PRIVACY_POLICY: "/privacy-policy",
+  TERMS_AND_CONDITIONS: "/terms-and-conditions",
 } as const;
 
 export type RoutePath = typeof ROUTE_PATHS[keyof typeof ROUTE_PATHS];
