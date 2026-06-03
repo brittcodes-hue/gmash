@@ -13,6 +13,7 @@ import Reviews from "@/pages/Reviews";
 import Blog from "@/pages/Blog";
 import RealEstate from "@/pages/RealEstate";
 import BlogDetail from "@/pages/BlogDetail";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import { ScrollToTop } from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />
               <Route path={ROUTE_PATHS.BLOG_DETAIL} element={<BlogDetail />} />
               <Route path={ROUTE_PATHS.REAL_ESTATE} element={<RealEstate />} />
+              <Route path={ROUTE_PATHS.PRIVACY_POLICY} element={<PrivacyPolicy />} />
             </Routes>
           </Layout>
         </BrowserRouter>
