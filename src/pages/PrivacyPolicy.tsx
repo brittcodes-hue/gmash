@@ -110,6 +110,12 @@ const PrivacyPolicy = () => {
               </p>
             </div>
           </section>
+
+          <section className="mt-12 pt-8 border-t border-gray-300">
+            <p className="text-gray-600 text-sm">
+              By using our website, you consent to our Privacy Policy. This policy is effective and applies to all information collected through our website and services. Please also review our <a href="/terms-and-conditions" className="text-blue-600 hover:underline">Terms and Conditions</a> for additional information about the use of our website and services.
+            </p>
+          </section>
         </div>
       </div>
     </div>
