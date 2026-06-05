@@ -123,8 +123,8 @@ export function ContactForm({ defaultServiceType, className = '' }: ContactFormP
     <Card className={className}>
       <CardHeader>
         <CardTitle className="text-2xl font-bold">Get Free Consultation</CardTitle>
-        <CardDescription>
-          Fill out the form below and we'll get back to you within 24 hours
+        <CardDescription className="text-base leading-relaxed">
+          Fill out the form below and we'll get back to you within 24 hours - By hitting submit you agree to our <a href="/terms-and-conditions" className="text-blue-600 hover:underline">Terms and Conditions</a> and are Opting in to be contacted and receive information. You may opt out at any time by responding "STOP"
         </CardDescription>
       </CardHeader>
       <CardContent>
